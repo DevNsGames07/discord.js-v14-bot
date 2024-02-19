@@ -36,19 +36,23 @@ module.exports = {
     i18next.changeLanguage(language);
 
     
-    const person = interaction.options.getUser("user")
+    const member = interaction.options.getMember("user")
     const reasonkick = interaction.options.getString("reason") || "No reason provided"
 
         const embed1 = new EmbedBuilder()
         .setTitle("**Kick Systeem**")
-        .setThumbnail(person.user.displayAvatarURL({ dynamic: true }))
+        .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
         .addFields(
-            { name: `Persoon:`, value: `${person}`, inline: true },
+            { name: `Persoon:`, value: `${member}`, inline: true },
             { name: `Reason:`, value: `${reasonkick}`, inline: true }
         )
         .setColor("Blue")
         .setFooter({ text: `Powered by ${client.user.username}`, iconURL: client.user.displayAvatarURL({ dynamic: true }) })
         .setTimestamp();
+
+        member.kick(reasonkick)
+
+        return interaction.reply({ embeds: [embed1] })
 
 
 
